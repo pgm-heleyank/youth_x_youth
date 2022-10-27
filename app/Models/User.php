@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'school_id',
+        'role_id',
     ];
 
     /**
@@ -62,5 +64,9 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    public function school()
+    {
+        return $this->belongsTo(School::class);
     }
 }

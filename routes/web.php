@@ -14,7 +14,12 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::get('/users', [UserController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\LandingController::class, 'landing']);
+Route::get('/start', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/firstTimeUser', [App\Http\Controllers\UserController::class, 'editProfile']);
+Route::post('/firstTimeUser', [App\Http\Controllers\UserController::class, 'saveAllergens']);

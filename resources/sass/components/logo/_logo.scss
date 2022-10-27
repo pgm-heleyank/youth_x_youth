@@ -1,0 +1,19 @@
+.logo {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    overflow: hidden;
+    align-items: center;
+    line-height: 1;
+    margin-bottom:1rem;
+    &__first_word {
+        position: relative;
+        right: -51vw;
+        margin-top:1rem;
+    }
+    &__third_word {
+        position: relative;
+        right: 35vw;
+    }
+}
+

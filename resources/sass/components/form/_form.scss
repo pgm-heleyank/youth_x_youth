@@ -1,0 +1,49 @@
+.form {
+    padding: 1.5rem ;
+    max-width: 100%;
+    width: 20rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    &__item {
+        position: relative;
+    }
+    &__label {
+position: absolute;
+  top:0.5rem;
+  left: 0;
+  padding: 0.2rem 0;
+  pointer-events: none;
+  transition: .5s;
+  background-color: $primary-color;
+  width: 100%;
+
+    }
+    &__input {
+    width: 100%;
+  padding: 7px 0;
+  font-size: 16px;
+  border: none;
+  border-bottom: 3px solid $secondary-color;
+  outline: none;
+
+    }
+    &__label--select {
+        font-size: 12px;
+    }
+    &__forget {
+        text-decoration: underline;
+        font-size: 0.8rem;
+        margin: 0 0 0 auto;
+    }
+
+}
+
+.form__item input:focus ~ .form__label,
+.form__item input:valid ~ .form__label
+{
+    top: -10px;
+    left: 0;
+    font-size: 12px;
+}

@@ -1,0 +1,14 @@
+.btn-secondary {
+    border: 2px solid $secondary-color;
+    width: 100%;
+    padding: 0.25rem;
+    color: $secondary-color;
+    border-radius: $border-radius-standard;
+    text-align: center;
+    transition: all 0.2 ease-in-out;
+}
+.btn-secondary:hover {
+    background-color: $secondary-color;
+    color: $primary-color;
+    opacity: 0.9;
+}

@@ -13,6 +13,7 @@
 
         @foreach($users as $user)
         <h2>{{$user->name}}</h2>
+        <h3>{{$user->school->name}}</h3>
         <p>
             {{$user->role->name}}
         </p>
