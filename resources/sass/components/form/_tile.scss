@@ -1,0 +1,62 @@
+.tile__container {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+
+}
+
+.tile {
+    border: 3px solid $secondary-color;
+    border-radius:1rem;
+    width: 5rem;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    background-color:$white-color;
+    position: relative;
+    justify-content: end;
+    align-items: flex-end;
+    padding: 0.25rem;
+    &__image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-65%) translateX(-50%);
+        width: 3.5rem;
+        height: 3.5rem;
+        max-width: 100%;
+        z-index: 0;
+    }
+    &__text {
+        position: relative;
+        z-index: 1;
+        color: $primary-color;
+        font-size:0.75rem;
+        font-weight:$font-weight-bold;
+        display: flex;
+        gap: 0.25rem;
+    }
+    &__text input {
+        position: absolute;
+        opacity: 0;
+
+    }
+    &__custom_checkbox {
+        border: 2px solid $primary-color;
+        border-radius: 50%;
+        position: relative;
+        width: 1rem;
+        aspect-ratio: 1/1;
+    }
+
+}
+
+.tile__text:hover .tile__custom_checkbox {
+    background-color: $primary-color;
+
+}
+.tile input:checked ~.tile__custom_checkbox {
+    background-color: $primary-color;
+}

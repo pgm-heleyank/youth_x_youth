@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.basic')
 @section('hero-image')
     <img class="app_layout__hero__img" src="{{ asset('storage/images/Denise.png') }}" alt="Denise">
 @endsection

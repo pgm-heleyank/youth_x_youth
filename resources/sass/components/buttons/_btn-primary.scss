@@ -6,7 +6,20 @@
     color: $primary-color;
     border-radius: $border-radius-standard;
     text-align: center;
+    margin-top: 1rem;
 }
 .btn-primary:hover {
-    opacity: 0.9;
+    opacity: 0.8;
+    border: 2px solid $primary-color;
+    cursor: pointer;
+}
+
+.btn-primary--blue {
+    border: 2px solid $primary-color;
+    background-color:$primary-color;
+    color: $secondary-color;
+}
+
+.btn-primary--blue:hover {
+    border: 2px solid $secondary-color;
 }

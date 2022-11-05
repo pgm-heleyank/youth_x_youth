@@ -1,32 +1,33 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    @vite(['resources/sass/app.scss'])
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name') }}</title>
-    <!-- Fonts -->
-    <!-- Scripts -->
-</head>
-
-<body class="app_layout">
-    <div class="app_layout__container">
-        <header>
-            <div class="app_layout__hero">
-                <h1 class="logo title-typography"><span class="logo__first_word">You(th)</span><span
-                        class="logo__second_word">x</span><span class="logo__third_word">You(th)</span>
-                </h1>
-            </div>
-        </header>
-        <main class="py-4">
-            @yield('content')
-        </main>
+@extends('layouts.main')
+@section('menu')
+    <div class="hamburger-menu closed" id="hamburger-menu">
+        <div class="app_layout__hero">
+            <div id="test"></div>
+            <img src="storage/images/icons/close.svg" alt="menu" class="hamburger-menu__close" id="close-btn">
+            <h1 class="logo title-typography"><span class="logo__first_word">You(th)</span><span
+                    class="logo__second_word">x</span><span class="logo__third_word">You(th)</span>
+            </h1>
+        </div>
+        <ul class="hamburger-menu__links">
+            <li><a href="/homePage">Home</a></li>
+            <li><a href="/profilePage">Profile</a></li>
+            <li><a href="/userPage">User information</a></li>
+            <li>Tips</li>
+            <li><a href="/contactPage">Report a problem</a></li>
+        </ul>
+        <div class="hamburger-menu__logout">
+            <a href="/logout" class="btn-primary hamburger-menu__logout-btn">log out</a>
+        </div>
     </div>
-</body>
+    <div class="app-layout__menu-container">
+        <button id="menu-btn" class="hamburger-menu__menu">
+            <img src="storage/images/icons/menu.svg" alt="menu" class="app-layout__menu">
+        </button>
 
-</html>
+        <button class="hamburger-menu__menu">
+            <a href="/communityPage">
+                <img src="storage/images/icons/community.svg" alt="go to meals page" class="app-layout__burger">
+            </a>
+        </button>
+    </div>
+@endsection

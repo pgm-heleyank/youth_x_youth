@@ -21,10 +21,12 @@ $primary-color:#0422BB;
 $secondary-color: #FCCD5A;
 $accent-color:#FC6C59;
 $white-color: #FFFFFF;
-
+$transparent-color: rgba(255,255,255,1);
+$box-shadow: -3px 3px 21px -5px rgba(0,0,0,0.33);
 
 //border radius
 $border-radius-standard: 3.125rem;
+$border-radius-small: 1rem;
 $border-thickness: 4px;
 
 

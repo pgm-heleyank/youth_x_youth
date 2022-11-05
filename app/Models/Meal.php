@@ -16,4 +16,12 @@ class Meal extends Model
     {
         return $this->belongsToMany(Allergen::class);
     }
+    public function campuses()
+    {
+        return $this->belongsTo(Campuse::class);
+    }
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
 }

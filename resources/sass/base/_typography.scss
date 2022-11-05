@@ -6,6 +6,9 @@ body {
     font-size: $font-size-label;
     color: $secondary-color;
 }
+.label--blue {
+    color:$primary-color;
+}
 
 .title-typography {
     font-size: $font-size-title;

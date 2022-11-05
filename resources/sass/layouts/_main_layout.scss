@@ -1,0 +1,14 @@
+.main-layout {
+    &__intro {
+        padding: 1rem;
+        width: 12rem;
+        margin-left: auto;
+    }
+    &__user {
+        font-size: 1.3rem;
+    }
+    &__username {
+        font-weight: $font-weight-bold;
+        text-transform: capitalize;
+    }
+}

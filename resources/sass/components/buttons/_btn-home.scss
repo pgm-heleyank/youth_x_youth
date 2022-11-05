@@ -1,0 +1,56 @@
+.btn--home__container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn--home {
+    background-color: $white-color;
+    border: 3px solid $secondary-color;
+    border-radius: $border-radius-small;
+    color: $primary-color;
+    font-weight:$font-weight-bold;
+    font-size: 1.625rem;
+    width: 9.375rem;
+    aspect-ratio: 1/1;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+    transition: all 0.2 ease-in-out;
+    display: block;
+    padding:1rem;
+
+    &__donate-img {
+        width: 8rem;
+        position: absolute;
+        top: 0;
+        transform: translateX(-35%) translateY(-5%);
+    }
+    &__request-img {
+        width: 8rem;
+        position: absolute;
+        top: 0;
+        transform: translateX(28%) translateY(-5%);
+    }
+    &__text {
+        display: block;
+        position: relative;
+        z-index: 1;
+
+    }
+    &__text-donate {
+        left: 30%;
+        top: 75%;
+    }
+    &__text-request {
+        top: 30%;
+    }
+}
+
+.btn--home:hover {
+    scale: 0.9;
+    cursor: pointer;
+}

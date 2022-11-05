@@ -24,4 +24,8 @@ class Order extends Model
     {
         return $this->belongsTo(Mealbox::class);
     }
+    public function campuses()
+    {
+        return $this->belongsTo(Campuse::class);
+    }
 }

@@ -37,7 +37,7 @@ class HomeController extends Controller
         if ($user->registrationStep === 0) {
             return redirect('/firstTimeUser');
         } else {
-            return 'Nay';
+            return redirect('/homePage');
         }
     }
 }
