@@ -6,8 +6,8 @@
 
 @section('content-box')
     <div class="container">
-
-        <div class="">
+        <h1 hidden>Register</h1>
+        <div class="basic-layout__main">
             <form method="POST" action="{{ route('register') }}" class="form">
                 @csrf
                 <div class="form__item">
@@ -55,30 +55,32 @@
                         </span>
                     @enderror
                 </div>
-                <div class="form__item">
+                <div class="form__sub-group">
+                    <div class="form__item">
 
 
-                    <input id="password" type="password"
-                        class="form-control @error('password') is-invalid @enderror form__input" name="password" required
-                        autocomplete="new-password">
+                        <input id="password" type="password"
+                            class="form-control @error('password') is-invalid @enderror form__input" name="password"
+                            required autocomplete="new-password">
 
-                    <label for="password" class="form__label">{{ __('Password') }}</label>
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                        <label for="password" class="form__label">{{ __('Password') }}</label>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form__item">
+
+
+                        <input id="password-confirm" type="password" class="form-control form__input"
+                            name="password_confirmation" required autocomplete="new-password">
+                        <label for="password-confirm" class="form__label">{{ __('Confirm Password') }}</label>
+                    </div>
                 </div>
-                <div class="form__item">
 
-
-                    <input id="password-confirm" type="password" class="form-control form__input"
-                        name="password_confirmation" required autocomplete="new-password">
-                    <label for="password-confirm" class="form__label">{{ __('Confirm Password') }}</label>
-                </div>
-
-                <div class="form__item">
-                    <div class="btn-group">
+                <div class="form__item form__extra-info">
+                    <div class="btn-group form__btn">
                         <button type="submit" class="btn-primary">
                             {{ __('Register') }}
                         </button>

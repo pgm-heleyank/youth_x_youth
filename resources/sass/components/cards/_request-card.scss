@@ -8,8 +8,15 @@
     color: $primary-color;
     align-items: center;
     justify-content:space-between;
+    width: 30rem;
+    max-width: 85vw;
+    overflow: hidden;
     &__container {
         margin-top: 1rem;
+        padding-left: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
     &__delete {
         position: absolute;
@@ -24,6 +31,7 @@
     &__allergies {
         display: flex;
         gap: 0.5rem;
+        flex-wrap: wrap;
     }
     &__icon {
         border: 2px solid $primary-color;
@@ -34,5 +42,18 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
+        background-color: $white-color;
+    }
+    &__btn {
+        background-color: $secondary-color;
+        position: absolute;
+        right: 0;
+        height: 3rem;
+        padding: 0.25rem;
+        padding-left: 0.5rem;
+    }
+    &__btn:hover {
+        background-color: $primary-color;
+        color: $secondary-color;
     }
 }

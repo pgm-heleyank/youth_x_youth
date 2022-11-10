@@ -1,13 +1,13 @@
 @extends('layouts.main')
 @section('menu')
     <div class="hamburger-menu closed" id="hamburger-menu">
-        <div class="app_layout__hero">
-            <div id="test"></div>
+
+        <a href="/homePage" class="app_layout__hero">
             <img src="storage/images/icons/close.svg" alt="menu" class="hamburger-menu__close" id="close-btn">
-            <h1 class="logo title-typography"><span class="logo__first_word">You(th)</span><span
+            <div class="logo title-typography"><span class="logo__first_word">You(th)</span><span
                     class="logo__second_word">x</span><span class="logo__third_word">You(th)</span>
-            </h1>
-        </div>
+            </div>
+        </a>
         <ul class="hamburger-menu__links">
             <li><a href="/homePage">Home</a></li>
             <li><a href="/profilePage">Profile</a></li>

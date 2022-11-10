@@ -50,18 +50,12 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $schools = School::all();
-
-        $userAllergies = $user->allergens;
-        $otherAllergies = $userAllergies->map(function ($userAll) {
-            $filteredAll = Allergen::where('name', '!=', $userAll->name)->get();
-            return $filteredAll;
-        });
+        $allAllergies = Allergen::all();
 
         return view('userPage', [
             'user' => $user,
             'schools' => $schools,
-            'otherAllergies' => $otherAllergies,
-            'userAllergies' => $userAllergies
+            'allAllergies' => $allAllergies,
         ]);
     }
 
@@ -94,29 +88,30 @@ class UserController extends Controller
         $date = Carbon::now()->format('Y-m-d');
         $userOrders = DB::table('orders')
             ->where('orders.user_id', $user->id)
-            ->where('orders.date', $date)
+            ->where('orders.date', '>=', $date)
             ->where('orders.meal_id', '!=', 0)
+            ->where('orders.status_id', '!=', 5)
             ->join('meals', 'orders.id', 'meals.order_id')
             ->where('meals.claimed', 1)
-            //->where('orders.campuse_id', $firstCampus)
             ->get();
-        $userDonations = Meal::where('user_id', $user->id)
-            ->where('date', $date)
-            //->where('campuse_id', $firstCampus)
+        $userDonations = DB::table('meals')
+            ->where('meals.user_id', $user->id)
+            ->where('meals.date', '>=', $date)
+            ->select(DB::raw('meals.id,meals.name,meals.image,meals.user_id as requester_id, orders.user_id as donator_id'))
+            ->join('orders', 'meals.id', '=', 'orders.meal_id')
+            ->where('orders.status_id', '!=', 3)
             ->get();
         $userMatches = DB::table('orders')
             ->where('orders.user_id',  $user->id)
-            ->where('orders.date', $date)
+            ->where('orders.date', '>=', $date)
             ->where('orders.meal_id', '!=', 0)
-            //->where('orders.campuse_id', $firstCampus)
             ->join('meals', 'orders.id', 'meals.order_id')
             ->where('meals.claimed', 0)
             ->get();
 
         $userRequests = Order::where('user_id',  $user->id)
-            ->where('date', $date)
+            ->where('date', '>=', $date)
             ->where('meal_id', 0)
-            //->where('campuse_id', $firstCampus)
             ->get();
         return view('profilePage', [
             'campuses' => $campuses,

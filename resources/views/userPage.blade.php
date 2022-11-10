@@ -21,30 +21,21 @@
             <h2 class="label label--blue">Food allergies</h2>
 
             <ul class="tile__container">
-                @foreach ($userAllergies as $userAll)
+
+
+                @foreach ($allAllergies as $allergy)
+                    @php $is_selected = ($user->allergens->contains('id', $allergy->id)) ? 'checked' : ''; @endphp
                     <div class="tile">
-                        <img src="storage/images/food_allergy_icons/{{ $userAll->icon }}" alt="{{ $userAll->name }}"
+                        <img src="storage/images/food_allergy_icons/{{ $allergy->icon }}" alt="{{ $allergy->name }}"
                             class="tile__image">
-                        <label class="tile__text" for="{{ $userAll->name }}">{{ $userAll->name }}
-                            <input type="checkbox" id="{{ $userAll->name }}" name="allergies[]"
-                                value="{{ $userAll->id }}" selected checked>
+                        <label class="tile__text" for="{{ $allergy->name }}">{{ $allergy->name }}
+                            <input type="checkbox" id="{{ $allergy->name }}" name="allergies[]"
+                                value="{{ $allergy->id }}" {{ $is_selected }}>
                             <div class="tile__custom_checkbox"></div>
                         </label>
                     </div>
                 @endforeach
-                @foreach ($otherAllergies as $allergies)
-                    @foreach ($allergies as $allergy)
-                        <div class="tile">
-                            <img src="storage/images/food_allergy_icons/{{ $allergy->icon }}" alt="{{ $allergy->name }}"
-                                class="tile__image">
-                            <label class="tile__text" for="{{ $allergy->name }}">{{ $allergy->name }}
-                                <input type="checkbox" id="{{ $allergy->name }}" name="allergies[]"
-                                    value="{{ $allergy->id }}" selected>
-                                <div class="tile__custom_checkbox"></div>
-                            </label>
-                        </div>
-                    @endforeach
-                @endforeach
+
             </ul>
             <ul class="tile__container" id="more-container">
 

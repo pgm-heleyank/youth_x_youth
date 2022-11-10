@@ -6,15 +6,23 @@
     aspect-ratio: 1/1;
     padding: 0.5rem;
     flex-shrink: 0;
+    overflow: hidden;
+    margin-top: 1rem;
     &__container {
         display: flex;
         gap: 1.5rem;
         padding: 1rem;
         overflow-y: auto;
+        max-width: 90vw;
+        margin: 0 auto;
+    }
+    &__wrapper {
+        position: relative;
     }
     &__delete {
+        z-index: 100;
         position: absolute;
-        top: -1rem;
+        top: 0;
         left: -1rem;
     }
     &__title {
@@ -26,6 +34,11 @@
         justify-content: space-between;
         align-items: baseline;
         text-transform: capitalize;
+        background-color: $transparent-color;
+        padding: 0.5rem;
+        border-radius: $border-radius-small;
+        flex-wrap: wrap;
+        word-break: break-word;
     }
     &__id {
         font-size: 0.8rem;
@@ -45,11 +58,11 @@
         width: 8.75rem;
         aspect-ratio: 1/1;
         object-fit: cover;
-        opacity: 0.6;
+        opacity: 0.8;
     }
     &__btn {
         position: relative;
         z-index: 1;
-        bottom:-3rem;
+        bottom:2rem;
     }
 }

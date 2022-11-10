@@ -8,7 +8,16 @@
     justify-content: flex-end;
     align-items: flex-end;
     margin-top: 1rem;
-
+    max-width: 15rem;
+    flex-shrink: 0;
+    word-break: break-word;
+    &__container {
+        display: flex;
+        max-width: 96vw;
+        overflow: auto;
+        margin: 0.5rem;
+        gap: 1rem;
+    }
     &__delete {
         position: absolute;
         top: -0.25rem;
@@ -48,11 +57,17 @@
         position: absolute;
         top: 0;
         width: 8rem;
-        min-height: 9rem;
+        max-width:100%;
+        min-height: 8.5rem;
         height:100%;
         object-fit: cover;
         border-radius: $border-radius-small 50% 50% $border-radius-small;
         left: 0;
-        border: 2px solid green;
+    }
+}
+
+@media (min-width: $breakpoint-primary) {
+    .meal-card {
+        max-width: 18rem;
     }
 }

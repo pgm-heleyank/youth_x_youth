@@ -19,13 +19,13 @@
     <div class="app_layout__container">
         <header>
             @yield('menu')
-            <div class="app_layout__hero">
+            <a href="/homePage" class="app_layout__hero">
                 <div class="app_layout__hero">
-                    <h1 class="logo title-typography"><span class="logo__first_word">You(th)</span><span
+                    <div class="logo title-typography"><span class="logo__first_word">You(th)</span><span
                             class="logo__second_word">x</span><span class="logo__third_word">You(th)</span>
-                    </h1>
+                    </div>
                 </div>
-            </div>
+            </a>
             @yield('introduction')
         </header>
         <main class="">

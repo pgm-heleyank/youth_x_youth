@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
-@section('intro')
-    <a href="/requestPage" class="btn btn--home">
-        <img src="storage/images/icons/love.svg" alt="go to request a meal page" class="btn--home__request-img">
-        <span class="btn--home__text btn--home__text-request">Request meal</span>
-    </a>
-@endsection
+
 
 @section('content')
     <div class="request-page">
+        <div class="card__title">
+            <img src="storage/images/icons/love.svg" alt="go to donate page" class="card__title-img">
+            <h1 class="card__title-txt">Request meal</h1>
+        </div>
         <form action="" method="POST" enctype="multipart/form-data" class="form form--blue">
             @csrf
             <div class="form__item">
@@ -24,13 +23,12 @@
                 <input type="date" name="date" class="form__input">
                 <label for="date"class="form__label">Date</label>
             </div>
-            <div class="request-page__user-message">
+            <div class="request-page__user-message form__extra-info">
                 <p class="main-layout__user">Hey, <span class="main-layout__username">{{ $user->name }}</span></p>
-                <p>Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit.</p>
+                <p>"Sometimes asking for help is the bravest thing you can do"</p>
             </div>
 
-            <button type="submit" id="submit" class="btn btn-primary btn-primary--blue">Request</button>
+            <button type="submit" id="submit" class="btn btn-primary btn-primary--blue form__btn">Request</button>
         </form>
     </div>
 @endsection

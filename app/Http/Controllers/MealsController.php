@@ -27,6 +27,7 @@ class MealsController extends Controller
         return view('donatePage', [
             'campuses' => $campuses,
             'allergies' => $allergies,
+            'user' => $user,
         ]);
     }
     public function saveDonation(Request $request)
@@ -40,11 +41,10 @@ class MealsController extends Controller
                 $filename = basename($uploaded_path);
             }
 
-
-
             $meal = new Meal();
             $user = Auth::user();
             $meal->user_id = $user->id;
+            $meal->claimed = 0;
             $meal->campuse_id = $request->input('campus_id');
             $meal->date = $request->input('date');
             $meal->name = $request->input('name');
@@ -53,7 +53,6 @@ class MealsController extends Controller
             if (isset($filename)) {
                 $meal->image = $filename;
             }
-
 
             // create order
             $order = new Order();
@@ -65,8 +64,13 @@ class MealsController extends Controller
 
 
             $success = $meal->save();
-            $meal->allergens()->sync($mealAllergens);
             $meal->orders()->save($order);
+            $meal->allergens()->sync($mealAllergens);
+
+            // update meal
+            $mealUp = Meal::find($meal->id);
+            $mealUp->order_id = $order->id;
+            $mealUp->save();
         }
 
         if ($success) {
@@ -118,16 +122,21 @@ class MealsController extends Controller
             ->where('user_id', '!=', 0)
             ->where('date', $date)
             ->where('meal_id', 0)
-            //->where('campuse_id', $firstCampus)
+            ->where('campuse_id', $firstCampus->id)
             ->get();
 
         $donations = DB::table('orders')
+            ->join('meals', 'orders.id', 'meals.order_id')
+            ->leftJoin('allergen_meal', 'allergen_meal.meal_id', 'meals.id')
+            ->join('allergens', 'allergens.id', 'allergen_meal.allergen_id')
             ->where('orders.user_id',  0)
             ->where('orders.date', $date)
             ->where('orders.meal_id', '!=', 0)
-            //->where('orders.campuse_id', $firstCampus)
-            ->join('meals', 'orders.id', 'meals.order_id')
+            ->where('orders.campuse_id', $firstCampus->id)
             ->where('meals.claimed', 0)
+            ->where('meals.user_id', '!=', $user->id)
+            ->select(DB::raw('meals.*,orders.*, group_concat(allergens.icon) as allergen_icons, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
+            ->groupBy('orders.id', 'meals.id')
             ->get();
 
         return view('communityPage', [
@@ -136,5 +145,42 @@ class MealsController extends Controller
             'requests' => $requests,
             'donations' => $donations
         ]);
+    }
+    public function donateMeal(Request $request)
+    {
+
+        if ($request->file('image')) {
+            $uploaded_path = $request->file('image')->store('public/meals');
+
+            $filename = basename($uploaded_path);
+        }
+
+        $meal = new Meal();
+        $user = Auth::user();
+        $meal->user_id = $user->id;
+        $meal->claimed = 0;
+        $meal->order_id = $request->input('order_id');
+        $meal->campuse_id = $request->input('campus_id');
+        $meal->date = $request->input('date');
+        $meal->name = $request->input('name');
+        $meal->description = $request->input('description');
+        $mealAllergens = $request->input('allergies');
+        if (isset($filename)) {
+            $meal->image = $filename;
+        }
+
+        $success = $meal->save();
+        $meal->allergens()->sync($mealAllergens);
+
+        // update order
+        $changeOrder = Order::find($request->input('order_id'));
+        $changeOrder->meal_id = $meal->id;
+        $changeOrder->save();
+
+
+
+        if ($success) {
+            return redirect('communityPage');
+        }
     }
 }

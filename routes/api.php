@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Allergen;
+use App\Models\Meal;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,22 +30,82 @@ Route::get('/allergens', function () {
         ->header('Content-Type', 'text/plain');
 });
 
-// API for profile page filter
-Route::get('/campus/{c}/{d}', function ($c, $d) {
-    $requests = DB::table('orders')
-        ->where('orders.user_id', '!=', 0)
-        ->where('orders.meal_id', 0)
-        ->where('orders.date', $d)
-        ->where('orders.campuse_id', $c)
-        ->get();
 
-    $donations = DB::table('orders')
-        ->where('orders.user_id', 0)
-        ->where('orders.meal_id', '!=', 0)
-        ->where('orders.date', $d)
-        ->join('meals', 'orders.id', 'meals.order_id')
-        ->where('meals.claimed', 0)
+
+Route::get('userOrder/delete/{orderId}', function ($mealId) {
+    $orderIdData = DB::table('meals')
+        ->where('meals.id', $mealId)
+        ->select('meals.order_id')
         ->get();
-    return response(json_encode([$requests, $donations]))
+    $orderId = $orderIdData[0]->order_id;
+    $order = Order::find($orderId);
+    $order->user_id = 0;
+    $order->save();
+
+    $meal = Meal::find($mealId);
+    $meal->claimed = 0;
+    $meal->save();
+
+
+    return response(json_encode([$meal, $order]))
+        ->header('Content-Type', 'text/plain');
+});
+Route::get('userDonation/delete/{orderId}', function ($mealId) {
+    $orderIdData = DB::table('meals')
+        ->where('meals.id', $mealId)
+        ->select('meals.order_id')
+        ->get();
+    $orderId = $orderIdData[0]->order_id;
+    Meal::find($mealId)->delete();
+    Order::find($orderId)->delete();
+
+
+    return response(json_encode('ok'))
+        ->header('Content-Type', 'text/plain');
+});
+
+
+Route::get('userMatch/delete/{mealId}', function ($mealId) {
+    $orderIdData = DB::table('meals')
+        ->where('meals.id', $mealId)
+        ->select('meals.order_id')
+        ->get();
+    $orderId = $orderIdData[0]->order_id;
+
+    Order::find($orderId)->delete();
+
+
+    return response(json_encode('ok'))
+        ->header('Content-Type', 'text/plain');
+});
+
+
+Route::get('userRequest/delete/{orderId}', function ($orderId) {
+
+    Order::find($orderId)->delete();
+
+
+    return response(json_encode('ok'))
+        ->header('Content-Type', 'text/plain');
+});
+
+
+Route::get('drop/{dropId}', function ($dropId) {
+
+    $meal = Meal::find($dropId);
+    $order = Order::find($meal->order_id);
+    $order->status_id = 3;
+    $order->save();
+
+    return response(json_encode('ok'))
+        ->header('Content-Type', 'text/plain');
+});
+Route::get('collect/{collectId}', function ($collectId) {
+
+    $meal = Meal::find($collectId);
+    $order = Order::find($meal->order_id);
+    $order->status_id = 5;
+    $order->save();
+    return response(json_encode('ok'))
         ->header('Content-Type', 'text/plain');
 });

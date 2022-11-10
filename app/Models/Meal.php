@@ -20,7 +20,7 @@ class Meal extends Model
     {
         return $this->belongsTo(Campuse::class);
     }
-    public function order()
+    public function orders()
     {
         return $this->hasOne(Order::class);
     }

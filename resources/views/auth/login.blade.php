@@ -3,7 +3,8 @@
 
 @section('content-box')
     <div class="container">
-        <div class="">
+        <h1 hidden>Log in</h1>
+        <div class="basic-layout__main">
             <form method="POST" action="{{ route('login') }}" class="form">
                 @csrf
 
@@ -22,7 +23,7 @@
                 </div>
 
 
-                <div class="form__item">
+                <div class="form__item form__sub-group">
 
 
                     <input id="password" type="password"
@@ -36,26 +37,22 @@
                         </span>
                     @enderror
 
+                    @if (Route::has('password.request'))
+                        <a class="form__forget" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                    @endif
                 </div>
 
-                @if (Route::has('password.request'))
-                    <a class="form__forget" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                @endif
-
-                <div class="">
-                    <input class="form-input" type="checkbox" name="remember" id="remember"
-                        {{ old('remember') ? 'checked' : '' }}>
-                    <label class="label" for="remember">
-                        {{ __('Remember Me') }}
-                    </label>
-                </div>
-
-
-
-                <div class="form__item">
-                    <div class="btn-group">
+                <div class="form__item form__extra-info">
+                    <div class="btn-group form__btn">
+                        <div class="form__extra-info">
+                            <input class="form-input" type="checkbox" name="remember" id="remember"
+                                {{ old('remember') ? 'checked' : '' }}>
+                            <label class="label" for="remember">
+                                {{ __('Remember Me') }}
+                            </label>
+                        </div>
                         <button type="submit" class="btn-primary">
                             {{ __('Sign in') }}
                         </button>

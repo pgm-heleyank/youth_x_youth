@@ -1,11 +1,14 @@
 @extends('layouts.basic')
 
 <?php
-header('Refresh: 5; URL=/homePage');
+header('Refresh: 2; URL=/homePage');
 ?>
 
 <div class="succes-page">
     @section('content-box')
-        <h1>SUCCES</h1>
+        <div class="succes-page__content">
+            <h1>IT WORKED</h1>
+            <p>Thank you for using our app</p>
+        </div>
     @endsection
 </div>

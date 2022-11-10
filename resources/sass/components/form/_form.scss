@@ -97,3 +97,31 @@ position: absolute;
 .form--blue {
     color: $primary-color;
 }
+
+@media (min-width: $breakpoint-primary) {
+    .form {
+        display: flex;
+        width: 60rem;
+        max-width: 90vw;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: space-around;
+        &__btn {
+            max-width: 30rem !important;
+            padding: 0.5rem !important;
+        }
+        &__extra-info {
+            width: 100% !important;
+            text-align: center;
+        }
+    }
+    .form >* {
+        width: 40%;
+        max-width: 100%;
+    }
+    input#date_filter {
+        width: fit-content;
+    }
+
+}

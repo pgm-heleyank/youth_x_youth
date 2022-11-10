@@ -2,7 +2,7 @@
 
 @section('intro')
     <p class="main-layout__user">Hey, <span class="main-layout__username">{{ $user->name }}</span></p>
-    <p>test tekstje</p>
+    <p>Glad to see you here!</p>
 @endsection
 
 
