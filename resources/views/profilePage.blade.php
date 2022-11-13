@@ -28,8 +28,14 @@
                             <img src="storage/meals/{{ $userOrder->image }}" alt="{{ $userOrder->name }}"
                                 class="order-card__image">
                         </li>
-                        <button class="order-card__btn btn-primary collect-btn" data-id="{{ $userOrder->id }}">Pick
-                            up</button>
+                        <button class="order-card__btn btn-primary <?php if ($userOrder->status_id === 3) {
+                            echo 'collect-btn';
+                        } ?>"
+                            data-id="{{ $userOrder->id }}"><?php if ($userOrder->status_id === 3) {
+                                echo 'Pick up';
+                            } ?><?php if ($userOrder->status_id !== 3) {
+                                echo 'Pending';
+                            } ?></button>
                     </div>
                 @endforeach
                 @foreach ($userDonations as $userDonation)
@@ -79,21 +85,24 @@
             <h2 class="sub-title">Pending Requests</h2>
             <ul class="request-card__container">
                 @foreach ($userRequests as $userRequest)
-                    <li class="request-card">
+                    <div class="request-card__item-container">
+
                         <img src="storage/images/icons/delete.svg" alt="delete meal"
                             class="request-card__delete delete-userRequest" data-id="{{ $userRequest->id }}">
-                        <div class="request-card__allergies-container">
-                            <p>Allergies</p>
-                            <ul class="request-card__allergies">
-                                @foreach ($userRequest->user->allergens as $userAllergy)
-                                    <li class="request-card__icon"><img
-                                            src="storage/images/food_allergy_icons/{{ $userAllergy->icon }}"
-                                            alt="{{ $userAllergy->name }}"></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <p>{{ $userRequest->date }}</p>
-                    </li>
+                        <li class="request-card">
+                            <div class="request-card__allergies-container">
+                                <p>Allergies</p>
+                                <ul class="request-card__allergies">
+                                    @foreach ($userRequest->user->allergens as $userAllergy)
+                                        <li class="request-card__icon"><img
+                                                src="storage/images/food_allergy_icons/{{ $userAllergy->icon }}"
+                                                alt="{{ $userAllergy->name }}"></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <p>{{ $userRequest->date }}</p>
+                        </li>
+                    </div>
                 @endforeach
             </ul>
 

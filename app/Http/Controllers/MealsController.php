@@ -109,6 +109,7 @@ class MealsController extends Controller
             return view('successPage');
         }
     }
+
     public function communityPage()
     {
         $user = Auth::user();
@@ -118,26 +119,49 @@ class MealsController extends Controller
 
         $campuses = Campuse::where('school_id', $school)->get();
 
-        $requests = Order::where('user_id', '!=', $user->id)
-            ->where('user_id', '!=', 0)
-            ->where('date', $date)
-            ->where('meal_id', 0)
-            ->where('campuse_id', $firstCampus->id)
-            ->get();
+        if ($firstCampus) {
+            $requests = Order::where('user_id', '!=', $user->id)
+                ->where('user_id', '!=', 0)
+                ->where('date', $date)
+                ->where('meal_id', 0)
+                ->where('campuse_id', $firstCampus->id)
+                ->get();
 
-        $donations = DB::table('orders')
-            ->join('meals', 'orders.id', 'meals.order_id')
-            ->leftJoin('allergen_meal', 'allergen_meal.meal_id', 'meals.id')
-            ->join('allergens', 'allergens.id', 'allergen_meal.allergen_id')
-            ->where('orders.user_id',  0)
-            ->where('orders.date', $date)
-            ->where('orders.meal_id', '!=', 0)
-            ->where('orders.campuse_id', $firstCampus->id)
-            ->where('meals.claimed', 0)
-            ->where('meals.user_id', '!=', $user->id)
-            ->select(DB::raw('meals.*,orders.*, group_concat(allergens.icon) as allergen_icons, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
-            ->groupBy('orders.id', 'meals.id')
-            ->get();
+            $donations = DB::table('orders')
+                ->join('meals', 'orders.id', 'meals.order_id')
+                ->leftJoin('allergen_meal', 'allergen_meal.meal_id', 'meals.id')
+                ->join('allergens', 'allergens.id', 'allergen_meal.allergen_id')
+                ->where('orders.user_id',  0)
+                ->where('orders.date', $date)
+                ->where('orders.meal_id', '!=', 0)
+                ->where('orders.campuse_id', $firstCampus->id)
+                ->where('meals.claimed', 0)
+                ->where('meals.user_id', '!=', $user->id)
+                ->select(DB::raw('meals.*,orders.*, group_concat(allergens.icon) as allergen_icons, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
+                ->groupBy('orders.id', 'meals.id')
+                ->get();
+        } else {
+            $requests = Order::where('user_id', '!=', $user->id)
+                ->where('user_id', '!=', 0)
+                ->where('date', $date)
+                ->where('meal_id', 0)
+                ->get();
+
+            $donations = DB::table('orders')
+                ->join('meals', 'orders.id', 'meals.order_id')
+                ->leftJoin('allergen_meal', 'allergen_meal.meal_id', 'meals.id')
+                ->join('allergens', 'allergens.id', 'allergen_meal.allergen_id')
+                ->where('orders.user_id',  0)
+                ->where('orders.date', $date)
+                ->where('orders.meal_id', '!=', 0)
+                ->where('meals.claimed', 0)
+                ->where('meals.user_id', '!=', $user->id)
+                ->select(DB::raw('meals.*,orders.*, group_concat(allergens.icon) as allergen_icons, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
+                ->groupBy('orders.id', 'meals.id')
+                ->get();
+        }
+
+
 
         return view('communityPage', [
             'campuses' => $campuses,

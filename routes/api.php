@@ -101,11 +101,11 @@ Route::get('drop/{dropId}', function ($dropId) {
         ->header('Content-Type', 'text/plain');
 });
 Route::get('collect/{collectId}', function ($collectId) {
+    $order = Order::find($collectId);
 
-    $meal = Meal::find($collectId);
-    $order = Order::find($meal->order_id);
     $order->status_id = 5;
     $order->save();
+
     return response(json_encode('ok'))
         ->header('Content-Type', 'text/plain');
 });

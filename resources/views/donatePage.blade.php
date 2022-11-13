@@ -14,13 +14,21 @@
         <form action="" method="POST" enctype="multipart/form-data" class="form form--blue">
             @csrf
             <div>
-                <select id="campus_id" type="text" class="form__input" name="campus_id" value="{{ old('campus_id') }}"
-                    required autofocus>
-                    <option value="">Choose campus</option>
-                    @foreach ($campuses as $campus)
-                        <option value="{{ $campus->id }}">{{ $campus->name }}</option>
-                    @endforeach
-                </select>
+
+                @if (count($campuses) > 0)
+                    <select id="campus_id" type="text" class="form__input" name="campus_id"
+                        value="{{ old('campus_id') }}" required autofocus>
+                        <option value="">Choose campus</option>
+                        @foreach ($campuses as $campus)
+                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                        @endforeach
+                    </select>
+                @else
+                    <select id="campus_id" type="text" class="form__input" name="campus_id"
+                        value="{{ old('campus_id') }}" hidden>
+                        <option value="0">Choose campus</option>
+                    </select>
+                @endif
                 <div class="form__group">
                     <div class="form__item">
                         <div class="form__file">

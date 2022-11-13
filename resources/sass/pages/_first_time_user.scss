@@ -1,0 +1,8 @@
+
+@media (min-width:$breakpoint-primary) {
+    .first-time-user {
+        &__intro{
+            border: 2px solid red;
+        }
+    }
+}

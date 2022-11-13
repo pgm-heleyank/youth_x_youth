@@ -1,9 +1,16 @@
 @extends('layouts.main')
 
 @section('intro')
-    <p class="main-layout__user">Hey, <span class="main-layout__username">{{ $user->name }}</span></p>
-    <p>Welcome to our app. Please tell us what you don't eat and we will try to take it account. We can't grarentee anything
-        so do be carefull when you are allergic. We love you.</p>
+    <div class="intro">
+        <img class="intro__image" src="{{ asset('storage/images/student_eating.png') }}" alt="Denise">
+        <div class="intro__text">
+            <p class="intro__user">Hey, <span class="main-layout__username">{{ $user->name }}</span></p>
+            <p>Welcome to our app. Please tell us what you don't eat and we will try to take it in account. We can't
+                guarantee
+                anything
+                so do be carefull when you are allergic. We love you.</p>
+        </div>
+    </div>
 @endsection
 
 

@@ -13,13 +13,15 @@
             <h1 class="card__title-txt">Community</h1>
         </div>
         <section class="form">
-            <select id="campus_filter" type="text" class="form__input" name="campus_id" value="{{ old('campus_id') }}"
-                required>
-                <option id="campus" value="{{ $firstCampus->id }}">{{ $firstCampus->name }}</option>
-                @foreach ($campuses as $campus)
-                    <option value="{{ $campus->id }}">{{ $campus->name }}</option>
-                @endforeach
-            </select>
+            @if ($firstCampus)
+                <select id="campus_filter" type="text" class="form__input" name="campus_id" value="{{ old('campus_id') }}"
+                    required>
+                    <option id="campus" value="{{ $firstCampus->id }}">{{ $firstCampus->name }}</option>
+                    @foreach ($campuses as $campus)
+                        <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                    @endforeach
+                </select>
+            @endif
             <input id="date_filter" type="date" value="<?php echo date('Y-m-d'); ?>">
         </section>
         <section>

@@ -93,6 +93,7 @@ class UserController extends Controller
             ->where('orders.status_id', '!=', 5)
             ->join('meals', 'orders.id', 'meals.order_id')
             ->where('meals.claimed', 1)
+            ->select(DB::raw('meals.*,orders.*'))
             ->get();
         $userDonations = DB::table('meals')
             ->where('meals.user_id', $user->id)

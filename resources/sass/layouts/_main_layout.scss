@@ -1,15 +1,42 @@
 .main-layout {
-
     &__intro {
         padding: 1rem;
         width: 18rem;
         margin-left: auto;
     }
+}
+.intro {
     &__user {
         font-size: 1.3rem;
     }
     &__username {
         font-weight: $font-weight-bold;
         text-transform: capitalize;
+    }
+}
+
+@media (min-width:$breakpoint-primary) {
+    .main-layout {
+        &__intro {
+            padding: 1rem;
+            width: 100%;
+        }
+    }
+    .intro {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        &__image {
+            max-width: 50%;
+            position: absolute;
+            max-width: 30rem;
+            transform: translateY(45%)
+
+        }
+        &__text {
+            max-width: 20rem;
+            margin-left: auto;
+        }
     }
 }

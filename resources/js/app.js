@@ -74,7 +74,6 @@ let $dateFilter = document.getElementById("date_filter");
 let $filterRequests = document.getElementById("filter-requests");
 let $filterDonations = document.getElementById("filter-donations");
 let csrfMeta = document.querySelector('meta[name="csrf-token"]');
-console.log(csrfMeta.content);
 $campusFilter?.addEventListener("change", (evt) => {
     let setCampus = evt.target.value;
     let setDate = $dateFilter.value;
@@ -82,12 +81,12 @@ $campusFilter?.addEventListener("change", (evt) => {
 });
 $dateFilter?.addEventListener("change", (evt) => {
     let setDate = evt.target.value;
-    let setCampus = $campusFilter.value;
+    let setCampus = $campusFilter ? $campusFilter.value : 0;
     filter(setCampus, setDate);
 });
 
 const filter = (setCampus, setDate) => {
-    if (setCampus && setDate) {
+    if (setCampus || setDate) {
         fetch(`/api/campus/${setCampus}/${setDate}`)
             .then((response) => response.json())
             .then((data) => {
@@ -95,15 +94,15 @@ const filter = (setCampus, setDate) => {
                     $filterRequests.innerHTML = "<p>no requests</p>";
                 }
                 if (data[0].length !== 0) {
-                    $filterRequests.innerHTML = data[0].map((request) => {
-                        let icons = request.allergen_icons.split(",");
-                        return `<li class="request-card">
+                    $filterRequests.innerHTML = data[0]
+                        .map((request) => {
+                            let icons = request.allergen_icons.split(",");
+                            return `<li class="request-card">
                         <div class="request-card__allergies-container">
                             <p>Allergies</p>
                             <ul class="request-card__allergies">
-                            <ul class="request-card__allergies">
                             ${icons
-                                .map((icon) => {
+                                ?.map((icon) => {
                                     return `<li class="request-card__icon">
                                         <img src="storage/images/food_allergy_icons/${icon}"
                                             alt="">
@@ -111,9 +110,8 @@ const filter = (setCampus, setDate) => {
                                 })
                                 .join("")}
                         </ul>
-                            </ul>
                         </div>
-                        <button class="donate-button " data-id="${
+                        <button class="donate-button request-card__btn" data-id="${
                             request.id
                         }" data-date="${request.date}">
                                 Donate
@@ -126,12 +124,12 @@ const filter = (setCampus, setDate) => {
                             <div id="${request.id}-form"></div>
 
                         </form>`;
-                    });
+                        })
+                        .join("");
                 }
 
                 if (data[1].length === 0) {
                     $filterDonations.innerHTML = "<p>no donations</p>";
-                    console.log("no data");
                 }
 
                 if (data[1].length !== 0) {
@@ -182,12 +180,11 @@ const callback = (mutationList, observer) => {
             for (let i = 0; i < $claimBtn.length; i++) {
                 $claimBtn[i].addEventListener("click", (evt) => {
                     let $claimId = evt.target.dataset.id;
-                    console.log($claimId);
+
                     if ($claimId) {
                         fetch(`/api/claim/${$claimId}`)
                             .then((response) => response.json())
                             .then((data) => {
-                                console.log(data);
                                 window.location.reload();
                             });
                     }
@@ -201,7 +198,7 @@ const callback = (mutationList, observer) => {
                     let $orderId = evt.target.dataset.id;
                     let $date = evt.target.dataset.date;
                     let $campus = document.getElementById("campus");
-                    let $campusId = $campus.value;
+                    let $campusId = $campus ? $campus.value : 0;
                     let $form = document.getElementById(`${$orderId}-form`);
                     $form.innerHTML = `
         <div>
@@ -237,10 +234,6 @@ const callback = (mutationList, observer) => {
     </div>`;
                 });
             }
-        } else if (mutation.type === "attributes") {
-            console.log(
-                `The ${mutation.attributeName} attribute was modified.`
-            );
         }
     }
 };
@@ -266,7 +259,6 @@ for (let i = 0; i < $deleteUserOrder.length; i++) {
             fetch(`/api/userOrder/delete/${mealId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 });
         }
@@ -284,7 +276,6 @@ for (let i = 0; i < $deleteUserDonation.length; i++) {
             fetch(`/api/userDonation/delete/${mealId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 });
         }
@@ -300,7 +291,6 @@ for (let i = 0; i < $deleteUserMatch.length; i++) {
             fetch(`/api/userMatch/delete/${mealId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 });
         }
@@ -315,7 +305,6 @@ for (let i = 0; i < $deleteUserRequest.length; i++) {
             fetch(`/api/userRequest/delete/${orderId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 });
         }
@@ -329,7 +318,8 @@ for (let i = 0; i < $donateButtons.length; i++) {
         let $orderId = evt.target.dataset.id;
         let $date = evt.target.dataset.date;
         let $campus = document.getElementById("campus");
-        let $campusId = $campus.value;
+
+        let $campusId = $campus ? $campus.value : 0;
         let $form = document.getElementById(`${$orderId}-form`);
         $form.innerHTML = `
         <div>
@@ -369,18 +359,15 @@ for (let i = 0; i < $donateButtons.length; i++) {
 // claim meal
 let $claimBtn = document.getElementsByClassName("claim");
 for (let i = 0; i < $claimBtn.length; i++) {
-    console.log("test");
     $claimBtn[i].addEventListener("click", (evt) => {
         let $claimId = evt.target.dataset.id;
-        console.log($claimId);
-        /*if ($claimId) {
+        if ($claimId) {
             fetch(`/api/claim/${$claimId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 });
-        }*/
+        }
     });
 }
 
@@ -389,12 +376,10 @@ let $dropBtn = document.getElementsByClassName("drop-btn");
 for (let i = 0; i < $dropBtn.length; i++) {
     $dropBtn[i].addEventListener("click", (evt) => {
         let $dropId = evt.target.dataset.id;
-        console.log($dropId);
         if ($dropId) {
             fetch(`/api/drop/${$dropId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 });
         }
@@ -405,12 +390,10 @@ let $collectBtn = document.getElementsByClassName("collect-btn");
 for (let i = 0; i < $collectBtn.length; i++) {
     $collectBtn[i].addEventListener("click", (evt) => {
         let $collectId = evt.target.dataset.id;
-        console.log($collectId);
         if ($collectId) {
             fetch(`/api/collect/${$collectId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 });
         }

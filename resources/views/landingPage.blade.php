@@ -5,8 +5,8 @@
 @endsection
 
 
-<div class="landing-page">
-    @section('content-box')
-        <img class="landing-page__img" src="{{ asset('storage/images/test.png') }}" alt="Denise">
-    @endsection
-</div>
+@section('content-box')
+    <div class="landing-page">
+        <img class="landing-page__img" src="{{ asset('storage/images/student_by_student.png') }}" alt="artwork Denise">
+    </div>
+@endsection
