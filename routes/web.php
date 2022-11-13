@@ -88,17 +88,7 @@ Route::middleware('auth')->group(function () {
     Route::get('api/claim/{claimId}', function ($claimId) {
         $user = Auth::user();
 
-        $meal = Meal::find($claimId);
-        /*if ($meal) {
 
-            $meal->claimed = 1;
-            if ($meal->orders->user_id === 0) {
-                $order = Order::find($meal->orders->id);
-                $order->user_id = $user->id;
-                $order->save();
-            }
-            $meal->save();
-        }*/
 
         $order = Order::find($claimId);
         if ($order) {

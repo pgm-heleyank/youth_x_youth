@@ -365,7 +365,8 @@ for (let i = 0; i < $claimBtn.length; i++) {
             fetch(`/api/claim/${$claimId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    window.location.reload();
+                    console.log(data);
+                    //window.location.reload();
                 });
         }
     });

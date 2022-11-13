@@ -65,7 +65,8 @@
                     <li class="meal-card">
                         <img src="storage/images/icons/delete.svg" alt="delete meal"
                             class="meal-card__delete delete-userMatch" data-id="{{ $userMatch->id }}">
-                        <button class="meal-card__btn btn-primary claim" data-id="{{ $userMatch->id }}">Claim</button>
+                        <button class="meal-card__btn btn-primary claim" data-id="{{ $userMatch->order_id }}">Claim
+                        </button>
                         <div class="meal-card__info">
                             <p class="meal-card__info-description">{{ $userMatch->description }}</p>
                             <div class="meal-card__info-group">
