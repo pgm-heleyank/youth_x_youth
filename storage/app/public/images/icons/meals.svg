@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="74.209" height="92.473" viewBox="0 0 74.209 92.473">
+  <g id="Group_144" data-name="Group 144" transform="translate(-163 -140.527)">
+    <text id="Meals" transform="translate(173 228)" fill="#fccd5a" font-size="20" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Meals</tspan></text>
+    <path id="Icon_awesome-hamburger" data-name="Icon awesome-hamburger" d="M65.893,34.986H6.816a7.018,7.018,0,0,0,0,14.03H65.893a7.018,7.018,0,0,0,0-14.03Zm2.272,18.706H4.544a2.306,2.306,0,0,0-2.272,2.338v2.338a9.224,9.224,0,0,0,9.089,9.353H61.348a9.224,9.224,0,0,0,9.089-9.353V56.031A2.306,2.306,0,0,0,68.165,53.693ZM8.327,30.31H64.382c4.909,0,7.757-6.416,4.945-11.089C63.62,9.733,51.06,2.265,36.354,2.25c-14.7.015-27.266,7.483-32.972,16.969C.568,23.893,3.418,30.31,8.327,30.31Zm46.2-16.368A2.339,2.339,0,1,1,52.26,16.28,2.306,2.306,0,0,1,54.532,13.942ZM36.354,9.265A2.339,2.339,0,1,1,34.082,11.6,2.306,2.306,0,0,1,36.354,9.265ZM18.177,13.942a2.339,2.339,0,1,1-2.272,2.338A2.306,2.306,0,0,1,18.177,13.942Z" transform="translate(164.5 138.277)" fill="#fccd5a"/>
+    <g id="Group_89" data-name="Group 89" transform="translate(-7103 -4459)">
+      <circle id="Ellipse_6" data-name="Ellipse 6" cx="8.5" cy="8.5" r="8.5" transform="translate(7278 4600)" fill="#0422bb"/>
+      <circle id="Ellipse_7" data-name="Ellipse 7" cx="8.5" cy="8.5" r="8.5" transform="translate(7266 4623)" fill="#0422bb"/>
+      <circle id="Ellipse_8" data-name="Ellipse 8" cx="12.5" cy="12.5" r="12.5" transform="translate(7271 4609)" fill="#0422bb"/>
+      <circle id="Ellipse_9" data-name="Ellipse 9" cx="12.5" cy="12.5" r="12.5" transform="translate(7266 4607)" fill="#0422bb"/>
+    </g>
+  </g>
+</svg>
