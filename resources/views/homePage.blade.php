@@ -10,7 +10,7 @@
 @section('content')
     <div class="btn--home__container">
         <a href="/donatePage" class="btn btn--home">
-            <img src="./public/storage/images/icons/bowl.svg" alt="go to donate page" class="btn--home__donate-img">
+            <img src="/storage/images/icons/bowl.svg" alt="go to donate page" class="btn--home__donate-img">
             <span class="btn--home__text btn--home__text-donate">Donate</span>
         </a>
         <a href="/requestPage" class="btn btn--home">
