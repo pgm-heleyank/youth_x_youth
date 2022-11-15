@@ -16,9 +16,14 @@
                         class="form-control @error('school') is-invalid @enderror form__input" name="school_id"
                         value="{{ old('school_id') }}" required autofocus>
                         <option value="">Choose school</option>
-                        @foreach ($schools as $school)
-                            <option value="{{ $school->id }}">{{ $school->name }}</option>
-                        @endforeach
+                        <option value="1">Artevelde University of Applied Sciences</option>
+                        <option value="2">GBS St. Gallen</option>
+                        <option value="3">Gradia</option>
+                        <option value="4">Grafisch Lyceum Rotterdam</option>
+                        <option value="5">Ente Nazionale Canossiano</option>
+                        <option value="6">NCG</option>
+                        <option value="7">Escola de Tecnologias Inovacão e Criacão</option>
+                        <option value="8">IES PUERTA bonita</option>
                     </select>
 
                     @error('name')
