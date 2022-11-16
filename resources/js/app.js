@@ -90,49 +90,12 @@ const filter = (setCampus, setDate) => {
         fetch(`/api/campus/${setCampus}/${setDate}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 if (data[0].length === 0) {
-                    $filterRequests.innerHTML = "<p>no requests</p>";
-                }
-                if (data[0].length !== 0) {
-                    $filterRequests.innerHTML = data[0]
-                        .map((request) => {
-                            let icons = request.allergen_icons.split(",");
-                            return `<li class="request-card">
-                        <div class="request-card__allergies-container">
-                            <p>Allergies</p>
-                            <ul class="request-card__allergies">
-                            ${icons
-                                ?.map((icon) => {
-                                    return `<li class="request-card__icon">
-                                        <img src="storage/images/food_allergy_icons/${icon}"
-                                            alt="">
-                                    </li>`;
-                                })
-                                .join("")}
-                        </ul>
-                        </div>
-                        <button class="donate-button request-card__btn" data-id="${
-                            request.id
-                        }" data-date="${request.date}">
-                                Donate
-                            </button>
-                    </li>
-                    <form action="/communityPage" method="POST" enctype="multipart/form-data" class="form form--blue">
-                    <input type="hidden" name="_token" value="${
-                        csrfMeta.content
-                    }" />
-                            <div id="${request.id}-form"></div>
-
-                        </form>`;
-                        })
-                        .join("");
-                }
-
-                if (data[1].length === 0) {
                     $filterDonations.innerHTML = "<p>no donations</p>";
                 }
 
-                if (data[1].length !== 0) {
+                if (data[0].length !== 0) {
                     $filterDonations.innerHTML = data[1].map((donation) => {
                         let icons = donation.allergen_icons.split(",");
                         return `<li class="meal-card">

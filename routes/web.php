@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
         $user = Auth::user();
         if ($c) {
             # code...
-            $requests = DB::table('orders')
+            /*$requests = DB::table('orders')
                 ->leftJoin('allergen_user', 'allergen_user.user_id', 'orders.user_id')
                 ->join('allergens', 'allergens.id', 'allergen_user.allergen_id')
                 ->where('orders.user_id', '!=', 0)
@@ -55,10 +55,10 @@ Route::middleware('auth')->group(function () {
                 ->where('orders.date', $d)
                 ->where('orders.campuse_id', $c)
                 ->select(DB::raw('orders.*, group_concat(allergen_id) as allergen_ids, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
-                ->groupBy('orders.id')
-                ->get();
+                ->groupBy('orders.id', 'orders.created_at', 'orders.updated_at', 'orders.status_id', 'orders.mealbox_id', 'orders.campuse_id', 'orders.date', 'orders.meal_id', 'allergens.id', 'allergens.name', 'allergens.icon')
+                ->get();*/
         } else {
-            $requests = DB::table('orders')
+            /* $requests = DB::table('orders')
                 ->leftJoin('allergen_user', 'allergen_user.user_id', 'orders.user_id')
                 ->join('allergens', 'allergens.id', 'allergen_user.allergen_id')
                 ->where('orders.user_id', '!=', 0)
@@ -66,8 +66,8 @@ Route::middleware('auth')->group(function () {
                 ->where('orders.meal_id', 0)
                 ->where('orders.date', $d)
                 ->select(DB::raw('orders.*, group_concat(allergen_id) as allergen_ids, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
-                ->groupBy('orders.id')
-                ->get();
+                ->groupBy('orders.id', 'orders.created_at', 'orders.updated_at', 'orders.status_id', 'orders.mealbox_id', 'orders.campuse_id', 'orders.date', 'orders.meal_id', 'allergens.id', 'allergens.name', 'allergens.icon')
+                ->get();*/
         }
 
         $donations = DB::table('orders')
@@ -80,9 +80,9 @@ Route::middleware('auth')->group(function () {
             ->where('meals.claimed', 0)
             ->where('meals.user_id', '!=', $user->id)
             ->select(DB::raw('meals.*,orders.*, group_concat(allergens.icon) as allergen_icons, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
-            ->groupBy('orders.id', 'meals.id')
+            ->groupBy('orders.id', 'meals.id', 'meals.name', 'meals.description', 'meals.date', 'meals.image', 'meals.created_at', 'meals.updated_at', 'meals.user_id', 'meals.campuse_id', 'meals.claimed', 'meals.order_id', 'orders.created_at', 'orders.updated_at', 'orders.status_id', 'orders.mealbox_id', 'orders.campuse_id', 'orders.date', 'orders.meal_id', 'orders.user_id')
             ->get();
-        return response(json_encode([$requests, $donations]))
+        return response(json_encode([$donations]))
             ->header('Content-Type', 'text/plain');
     });
     Route::get('api/claim/{claimId}', function ($claimId) {
