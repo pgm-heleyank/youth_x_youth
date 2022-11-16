@@ -138,7 +138,7 @@ class MealsController extends Controller
                 ->where('meals.claimed', 0)
                 ->where('meals.user_id', '!=', $user->id)
                 ->select(DB::raw('meals.*,orders.*, group_concat(allergens.icon) as allergen_icons, group_concat(allergens.name) as allergen_names, group_concat(allergens.icon) as allergen_icons'))
-                ->groupBy('orders.id', 'meals.id')
+                ->groupBy('orders.id', 'meals.name')
                 ->get();
         } else {
             $requests = Order::where('user_id', '!=', $user->id)
